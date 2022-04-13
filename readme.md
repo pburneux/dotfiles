@@ -1,5 +1,7 @@
-home sweet home.
+# home sweet home.
 
-Todo: 
+## Todo: 
+
 [] Add arch package export for easy re-installs if needed
-[] Fix spotify mpris deal...
+
+[] Fix spotify mpris deal... 
