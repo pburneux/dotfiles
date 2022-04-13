@@ -23,8 +23,8 @@ bspc config focused_border_color "#98971a"
 # bspc config normal_border_color "#353b45"
 
 # autostart up applications 
-picom & 
-feh --bg-fill ~/.wallpaper/2.png &
+picom --experimental-backends --backend glx & 
+feh --bg-fill ~/.wallpaper/4.png &
 xrdb merge ~/.Xresources &
 ~/.config/polybar/launch.sh &
 sxhkd 
