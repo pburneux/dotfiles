@@ -16,6 +16,7 @@ antigen bundle git
 antigen bundle pip
 antigen bundle docker
 antigen bundle command-not-found
+antigen bundle Aloxaf/fzf-tab
 
 # Load bundles from external repos
 antigen bundle zsh-users/zsh-completions
@@ -48,3 +49,8 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# fzf bindings per arch wiki
+# source "/usr/share/fzf/key-bindings.zsh"
+# source "/usr/share/fzf/completion.zsh"
+

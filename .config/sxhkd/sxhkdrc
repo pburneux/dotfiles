@@ -1,35 +1,32 @@
-#  ------ programs  -------- # 
+#  ------ Launch Programs  -------- # 
 
+# terminal
 super + Return
       kitty
 
+# drun to launch applications
 super + c
         rofi -show drun
 
-super + n
-        bash ~/.local/bin/vi_padding
+#  ------ Reload Configs  -------- # 
 
-# reload config (bspwmrc and sxhkdrc)  # 
-
+# sxhkdrc
 super + shift + r
 	pkill -USR1 -x sxhkd
 
+# bswpwmrc
 super + shift + e
         bspc wm -r
 
-#  ------ brightness  -------- # 
-
-XF86MonBrightnessUp
-    xbacklight -inc 10
-
-XF86MonBrightnessDown
-    xbacklight -dec 10
-
 #  ------------ bspwm hotkeys ------------ # 
 
-# quit/restart bspwm
-super + alt + {q,r}
-	bspc {quit,wm -r}
+# quit bspwm
+super + alt + q
+	bspc quit
+
+# restart bspwm
+super + alt + r 
+    bspc wm -r
 
 # close and kill
 super + {_,shift + }q
@@ -38,25 +35,6 @@ super + {_,shift + }q
 # alternate between the tiled and monocle layout
 super + Tab
 	bspc desktop -l next
-
-# send the newest marked node to the newest preselected node
-super + y
-	bspc node newest.marked.local -n newest.!automatic.local
-
-# swap the current node and the biggest node
-super + g
-	bspc node -s biggest
-
-
-# state/flags
-
-# set the window state
-super + {d,shift + d,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# set the node flags
-super + ctrl + {m,x,y,z}
-	bspc node -g {marked,locked,sticky,private}
 
 # focus/swap
 
@@ -122,11 +100,6 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
-
-super + m
-  bspc desktop -l next  # idk what this does 
-
-
 # -------------- take screenshots ------------- #
 
 #fullscreen screenshot save
@@ -146,9 +119,7 @@ super + shift + u
     maim --select | xclip -selection clipboard -t image/png
 
 
-
-super + {_,shift + }{a,b,c,d,e,0}
-      bspc {desktop -f,node -d} '^{1-5,5}' --follow 
-
-super  + r
-      tdrop -ma -x '25%' -y '5%' -w '50%' -h '30%' -p 'bspc rule -a St -o state=floating' st -T ranger -e ranger 
+# --------------- CUSTOM ------------------ #
+# Toggle floating
+super + d
+    bspc node focused -t \~floating
