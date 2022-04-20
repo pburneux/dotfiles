@@ -40,14 +40,27 @@ end
 
 -- Install plugins
 return packer.startup(function(use)
-  -- Add you plugins here:
-  use 'wbthomason/packer.nvim' -- packer can manage itself
+  use { 'wbthomason/packer.nvim' } -- packer can manage itself
+  use { 'kyazdani42/nvim-tree.lua' } -- File explorer
+  use { 'lukas-reineke/indent-blankline.nvim' } -- Indent line
+  use { 'kyazdani42/nvim-web-devicons' } -- Icons
+  use { "airblade/vim-rooter" } -- set root directory to project base
+  use { "farmergreg/vim-lastplace" } -- move to last place when opening file
+  use { "AndrewRadev/splitjoin.vim" } -- gS and gJ to split single lines to multi and vice versa
+  use { "jose-elias-alvarez/nvim-lsp-ts-utils" } -- stuff like autoimport and organize
 
-  -- File explorer
-  use 'kyazdani42/nvim-tree.lua'
+  -- tpope magic
+  use { "tpope/vim-commentary" } -- add comments
+  use { "tpope/vim-repeat" } -- better repeat
+  use { "tpope/vim-surround" } -- add surrounding tags and stuff
+  use { "tpope/vim-eunuch" } -- Adds :Rename, :SudoWrite
+  use { "tpope/vim-sleuth" } -- Indent autodetection with editorconfig support
+  use { "voldikss/vim-floaterm" }
 
-  -- Indent line
-  use 'lukas-reineke/indent-blankline.nvim'
+  -- Color schemes
+  use 'navarasu/onedark.nvim'
+  use 'tanvirtin/monokai.nvim'
+  use { 'rose-pine/neovim', as = 'rose-pine' }
 
   -- Autopair
   use {
@@ -57,44 +70,39 @@ return packer.startup(function(use)
     end
   }
 
-  -- Icons
-  use 'kyazdani42/nvim-web-devicons'
-
-  -- Tag viewer
-  use 'liuchengxu/vista.vim'
-
-  -- Treesitter interface
-  use 'nvim-treesitter/nvim-treesitter'
-
-  -- Color schemes
-  use 'navarasu/onedark.nvim'
-  use 'tanvirtin/monokai.nvim'
-  use { 'rose-pine/neovim', as = 'rose-pine' }
-
-  -- LSP
-  use 'neovim/nvim-lspconfig'
-
   -- LSP-Zero provides full lspconfig, cmp, and lspinstaller set up
   use {
-  'VonHeikemen/lsp-zero.nvim',
-  requires = {
-    -- LSP Support
-    {'neovim/nvim-lspconfig'},
-    {'williamboman/nvim-lsp-installer'},
+    'VonHeikemen/lsp-zero.nvim',
+    requires = {
+      -- LSP Support
+      {'neovim/nvim-lspconfig'},
+      {'williamboman/nvim-lsp-installer'},
 
-    -- Autocompletion
-    {'hrsh7th/nvim-cmp'},
-    {'hrsh7th/cmp-buffer'},
-    {'hrsh7th/cmp-path'},
-    {'saadparwaiz1/cmp_luasnip'},
-    {'hrsh7th/cmp-nvim-lsp'},
-    {'hrsh7th/cmp-nvim-lua'},
+      -- Autocompletion
+      {'hrsh7th/nvim-cmp'},
+      {'hrsh7th/cmp-buffer'},
+      {'hrsh7th/cmp-path'},
+      {'saadparwaiz1/cmp_luasnip'},
+      {'hrsh7th/cmp-nvim-lsp'},
+      {'hrsh7th/cmp-nvim-lua'},
 
-    -- Snippets
-    {'L3MON4D3/LuaSnip'},
-    {'rafamadriz/friendly-snippets'},
+      -- Snippets
+      {'L3MON4D3/LuaSnip'},
+      {'rafamadriz/friendly-snippets'},
+    }
   }
-}
+
+  --null-ls for stuff like prettierd
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = { 'nvim-lua/plenary.nvim' }
+  }
+
+  -- Telescope
+  use {
+    'nvim-telescope/telescope.nvim',
+    requires = { {'nvim-lua/plenary.nvim'} }
+  }
 
   -- Statusline
   use {
@@ -131,6 +139,11 @@ return packer.startup(function(use)
       require('colorizer').setup()
     end
   }
+
+  use {
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate'
+    }
 
 
 -----------------------------------------------------------

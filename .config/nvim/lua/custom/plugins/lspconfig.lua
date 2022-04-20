@@ -1,4 +1,4 @@
--- custom.configs.lspconfig file 
+-- custom.configs.lspconfig file
 
 local M = {}
 
