@@ -44,6 +44,7 @@ vim.o.cursorline = true
 -- MAPPINGS
 --------------------------------
 local map = require("core.utils").map
+local cmd = vim.cmd
 
 -----------------------------------------------------------
 -- Nvim controls
@@ -132,5 +133,29 @@ map('t', '<F1>', '<C-\\><C-n>:FloatermToggle scratch<CR>')
 
 
 -- Telescope
-map('n', '<leader>ff', ':Telescope git_files<CR>')
+map('n', '<leader>f', ':Telescope git_files<CR>')
 map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>')
+
+-----------------------------------------------------------
+-- Auto Commands
+-----------------------------------------------------------
+-- Floaterm theme
+cmd([[
+    " Neutron Bg
+    hi Floaterm guibg=#1b1d22
+    hi FloatermBorder guifg=#1b1d22 guibg=#1b1d22
+]])
+
+-- Highlight on yank
+cmd([[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=800}
+  augroup end
+]], false)
+
+-- Remove whitespace on save
+cmd [[autocmd BufWritePre * :%s/\s\+$//e]]
+
+-- Don't auto commenting new lines
+cmd [[autocmd BufEnter * set fo-=c fo-=r fo-=o]]

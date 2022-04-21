@@ -8,6 +8,9 @@ local default = {
    ensure_installed = {
       "lua",
       "vim",
+      "javascript",
+      "typescript",
+
    },
    highlight = {
       enable = true,
