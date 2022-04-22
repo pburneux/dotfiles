@@ -30,7 +30,7 @@ map('n', '<leader>q', ':bdelete<CR>')
 map('n', '<leader>Q', ':qa!<CR>')
 
 -----------------------------------------------------------
--- Neovim shortcuts
+-- Misc
 -----------------------------------------------------------
 
 -- Disable arrow keys
@@ -43,8 +43,12 @@ map('', '<right>', '<nop>')
 map('i', 'kk', '<Esc>')
 map('i', 'jj', '<Esc>')
 
--- Clear search highlighting with <leader> and c
-map('n', '<leader>c', ':nohl<CR>')
+-- use ESC to turn off search highlighting
+map("n", "<Esc>", ":noh <CR>")
+
+-- use TAB to cycle open buffers
+map("n", "<Tab>", ":bnext <CR>")
+map("n", "<S-Tab>", ":bprev <CR>")
 
 -- Reselect visual selection after indenting
 map('v', '<', '<gv')
@@ -102,4 +106,6 @@ map('t', '<F1>', '<C-\\><C-n>:FloatermToggle scratch<CR>')
 -- Telescope
 map('n', '<leader>ff', ':Telescope git_files<CR>')
 map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>')
+map('n', '<leader>ft', ':Telescope <CR>')
+
 

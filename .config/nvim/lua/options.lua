@@ -22,7 +22,7 @@ opt.mouse = 'a'                       -- Enable mouse support
 opt.clipboard = 'unnamedplus'         -- Copy/paste to system clipboard
 opt.swapfile = false                  -- Don't use swapfile
 opt.completeopt = 'menuone,noselect'  -- Autocomplete options
-vim.o.clipboard = 'unnamedplus'       -- Use linux system clipboard
+opt.clipboard = 'unnamedplus'       -- Use linux system clipboard
 
 -----------------------------------------------------------
 -- Neovim UI
@@ -44,7 +44,7 @@ opt.listchars = 'tab:▸ ,trail:·'      -- Show trailing space and tab characte
 opt.showmode = false		      -- Showing mode will be handled by status bar
 
 -----------------------------------------------------------
--- Wrapping
+-- Scrolling
 -----------------------------------------------------------
 opt.scrolloff = 8                     -- Prevent cursor from going to bottom or
 opt.sidescrolloff = 8                 -- the side of the window
@@ -137,18 +137,11 @@ cmd [[
 ]]
 
 -- auto close nvim-tree when last window
--- cmd [[
--- autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
--- ]]
+cmd [[
+autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif
+]]
 
------------------------------------------------------------
--- Terminal theme
------------------------------------------------------------
 
-cmd([[
-    " Neutron Bg
-    hi Floaterm guibg=#1b1d22
-    hi FloatermBorder guifg=#1b1d22 guibg=#1b1d22
-]])
+
 
 
