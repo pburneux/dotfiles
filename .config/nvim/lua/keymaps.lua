@@ -102,10 +102,10 @@ map('n', '<leader>io', ':TSLspOrganize<CR>')
 map('n', '<F1>', ':FloatermToggle scratch<CR>')
 map('t', '<F1>', '<C-\\><C-n>:FloatermToggle scratch<CR>')
 
-
 -- Telescope
 map('n', '<leader>ff', ':Telescope git_files<CR>')
 map('n', '<leader>fl', ':Telescope current_buffer_fuzzy_find<CR>')
 map('n', '<leader>ft', ':Telescope <CR>')
 
-
+-- null-ls formatting
+map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>')

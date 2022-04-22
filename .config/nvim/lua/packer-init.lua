@@ -7,39 +7,39 @@
 
 -- Automatically install and set up packer.nvim on any machine after cloning dotfiles
 local fn = vim.fn
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local cmd = vim.cmd
+-- local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-if fn.empty(fn.glob(install_path)) > 0 then
-  packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-end
+-- if fn.empty(fn.glob(install_path)) > 0 then
+--   packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+-- end
 
-local packer = require('packer')
+local packer = require("packer")
 
 -- Packer options like display and autoclean
-packer.init {
-  display = {
-    open_fn = function()
-      return require('packer.util').float { border = 'rounded' }
-    end,
-  },
-  auto_clean = true,
-  compile_on_sync = true,
-}
+packer.init({
+	display = {
+		open_fn = function()
+			return require("packer.util").float({ border = "rounded" })
+		end,
+	},
+	auto_clean = true,
+	compile_on_sync = true,
+})
 
-packer.set_handler('config', function(_, plugin, value)
-  if type(value) == 'string' and vim.fn.filereadable(vim.fn.expand(value)) == 1 then
-    plugin.config = "vim.cmd('source " .. value .. "')"
-  end
+packer.set_handler("config", function(_, plugin, value)
+	if type(value) == "string" and fn.filereadable(fn.expand(value)) == 1 then
+		plugin.config = "vim.cmd('source " .. value .. "')"
+	end
 end)
 
 -- Reload packer after saving plugins.lua (this file)
-vim.cmd [[
+cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost packer-init.lua source <afile> | PackerSync
+    autocmd BufWritePost packer-init.lua source <afile> | PackerCompile
   augroup end
-]]
-
+]])
 
 -----------------------------------------------------------
 -- Plugins
@@ -47,187 +47,181 @@ vim.cmd [[
 
 -- Install plugins
 return packer.startup(function(use)
-  use { 'wbthomason/packer.nvim' } -- packer can manage itself
+	use({ "wbthomason/packer.nvim" }) -- packer can manage itself
 
-  ----------------
-  -- Base: Plugins that modify base vim functionality
-  ----------------
-  use { "airblade/vim-rooter" }             -- set root directory to project base
-  use { "farmergreg/vim-lastplace" }        -- move to last place when opening file
-  use { "AndrewRadev/splitjoin.vim" }       -- gS and gJ to split single lines t
+	----------------
+	-- Base: Plugins that modify base vim functionality
+	----------------
+	use({ "airblade/vim-rooter" }) -- set root directory to project base
+	use({ "farmergreg/vim-lastplace" }) -- move to last place when opening file
+	use({ "AndrewRadev/splitjoin.vim" }) -- gS and gJ to split single lines t
 
-  -- tpope magic
-  use { "tpope/vim-commentary" }            -- add comments
-  use { "tpope/vim-repeat" }                -- better repeat
-  use { "tpope/vim-surround" }              -- add surrounding tags and stuff
-  use { "tpope/vim-eunuch" }                -- Adds :Rename, :SudoWrite
-  use { "tpope/vim-sleuth" }                -- Indent autodetection with editorconfig support
+	-- tpope magic
+	use({ "tpope/vim-commentary" }) -- add comments
+	use({ "tpope/vim-repeat" }) -- better repeat
+	use({ "tpope/vim-surround" }) -- add surrounding tags and stuff
+	use({ "tpope/vim-eunuch" }) -- Adds :Rename, :SudoWrite
+	use({ "tpope/vim-sleuth" }) -- Indent autodetection with editorconfig support
 
-  use {
-    "tommcdo/vim-lion",
-    config = function()
-      vim.g.lion_squeeze_spaces = 1 -- Remove as many spaces as possible when aligning
-    end
-  }
+	use({ "tommcdo/vim-lion" })
 
-  ----------------
-  -- Theme & UI: Plugins that modify the look and feel of nvim
-  ----------------
-  -- Icons for use in plugins and such
-  use { 'kyazdani42/nvim-web-devicons' }
+	----------------
+	-- Theme & UI: Plugins that modify the look and feel of nvim
+	----------------
+	-- Icons for use in plugins and such
+	use({ "kyazdani42/nvim-web-devicons" })
 
-  -- Colorscheme: Github
-  use {
-    "projekt0n/github-nvim-theme",
-    config = function()
-      require("github-theme").setup({
-        theme_style = "dark",
-        sidebars = {"packer", "nvim-tree"},
-      })
-    end
-  }
+	-- Colorscheme: Github
+	use({
+		"projekt0n/github-nvim-theme",
+		config = function()
+			require("github-theme").setup({
+				theme_style = "dark",
+				sidebars = { "packer", "nvim-tree" },
+			})
+		end,
+	})
 
-  -- status bar plugin: lualine.nvim
-  use {
-    "hoob3rt/lualine.nvim",
-    after = "github-nvim-theme",
-    config = function()
-      require("lualine").setup {
-        options = {
-          theme = "auto" -- or you can assign github_* themes individually.
-          -- ... your lualine config
-        }
-      }
-    end
-  }
+	-- status bar plugin: lualine.nvim
+	use({
+		"hoob3rt/lualine.nvim",
+		after = "github-nvim-theme",
+		config = function()
+			require("lualine").setup({
+				options = {
+					theme = "auto", -- or you can assign github_* themes individually.
+					-- ... your lualine config
+				},
+			})
+		end,
+	})
 
-  -- nvim-tree
-  use {
-      'kyazdani42/nvim-tree.lua',
-      requires = {
-        'kyazdani42/nvim-web-devicons', -- optional, for file icon
-      },
-      config = function()
-        require('plugins.nvim-tree')
-      end
-  }
+	-- nvim-tree
+	use({
+		"kyazdani42/nvim-tree.lua",
+		after = "github-nvim-theme",
+		requires = {
+			"kyazdani42/nvim-web-devicons", -- optional, for file icon
+		},
+		config = function()
+			require("plugins.nvim-tree")
+		end,
+	})
 
-  -- Telescope
-  use {
-    'nvim-telescope/telescope.nvim',
-    requires = {
-      { 'nvim-lua/plenary.nvim' },
-      { 'kyazdani42/nvim-web-devicons' },
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
-      { 'nvim-telescope/telescope-live-grep-raw.nvim' },
-    },
-    config = function()
-      require('plugins.telescope')
-    end
-  }
+	-- Telescope
+	use({
+		"nvim-telescope/telescope.nvim",
+		after = "github-nvim-theme",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "kyazdani42/nvim-web-devicons" },
+			{ "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+			{ "nvim-telescope/telescope-live-grep-raw.nvim" },
+		},
+		config = function()
+			require("plugins.telescope")
+		end,
+	})
 
-  -- floating terminal is the only terminal you need
-  use {
-    'voldikss/vim-floaterm',
-    config = function()
-      vim.cmd([[
-      hi Floaterm guifg=#1f2428 guibg=#1f2428
-      hi FloatermBorder guifg=#1f2428 guibg=#1f2428
-      ]])
-    end
-  }
+	-- floating terminal is the only terminal you need
+	use({
+		"voldikss/vim-floaterm",
+		after = "github-nvim-theme",
+		config = function()
+			require("plugins.floaterm")
+		end,
+	})
 
-  -- Git labels
-  use {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end
-  }
+	-- Git labels
+	use({
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("gitsigns").setup()
+		end,
+	})
 
-  -- bufferline.nvim
-  use {
-    'akinsho/bufferline.nvim',
-    tag = "*",
-    config = function ()
-      require('plugins.bufferline')
-    end
-  }
+	-- bufferline.nvim
+	use({
+		"akinsho/bufferline.nvim",
+		tag = "*",
+		config = function()
+			require("plugins.bufferline")
+		end,
+	})
 
-  ----------------
-  -- Misc
-  ----------------
+	----------------
+	-- Misc
+	----------------
 
-  -- Treesitter for better highlighting
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-    config = function()
-      require('plugins.nvim-treesitter')
-    end
-  }
+	-- Treesitter for better highlighting
+	use({
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+		config = function()
+			require("plugins.nvim-treesitter")
+		end,
+	})
 
-  -- nvim-colorizer.lua
-  use {
-    'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end
-  }
+	-- nvim-colorizer.lua
+	use({
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	})
 
-  -- Autopair
-  use {
-    'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup()
-    end
-  }
+	-- Autopair
+	use({
+		"windwp/nvim-autopairs",
+		config = function()
+			require("nvim-autopairs").setup()
+		end,
+	})
 
-  ----------------
-  -- LSP Stuff
-  ----------------
+	----------------
+	-- LSP Stuff
+	----------------
 
-  -- LSP-Zero provides full lspconfig, cmp, and lspinstaller set up
-  use {
-    'VonHeikemen/lsp-zero.nvim',
-    requires = {
-      -- LSP Support
-      {'neovim/nvim-lspconfig'},
-      {'williamboman/nvim-lsp-installer'},
+	-- LSP-Zero provides full lspconfig, cmp, and lspinstaller set up
+	use({
+		"VonHeikemen/lsp-zero.nvim",
+		requires = {
+			-- LSP Support
+			{ "neovim/nvim-lspconfig" },
+			{ "williamboman/nvim-lsp-installer" },
 
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},
-      {'hrsh7th/cmp-buffer'},
-      {'hrsh7th/cmp-path'},
-      {'saadparwaiz1/cmp_luasnip'},
-      {'hrsh7th/cmp-nvim-lsp'},
-      {'hrsh7th/cmp-nvim-lua'},
+			-- Autocompletion
+			{ "hrsh7th/nvim-cmp" },
+			{ "hrsh7th/cmp-buffer" },
+			{ "hrsh7th/cmp-path" },
+			{ "saadparwaiz1/cmp_luasnip" },
+			{ "hrsh7th/cmp-nvim-lsp" },
+			{ "hrsh7th/cmp-nvim-lua" },
 
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},
-      {'rafamadriz/friendly-snippets'},
-    },
-    config = function()
-      require('plugins.lsp-zero')
-    end
-  }
+			-- Snippets
+			{ "L3MON4D3/LuaSnip" },
+			{ "rafamadriz/friendly-snippets" },
+		},
+		config = function()
+			require("plugins.lsp-zero")
+		end,
+	})
 
-  --null-ls for stuff like prettierd
-  use {
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      require('plugins.null-ls')
-    end
-  }
+	--null-ls for stuff like prettierd
+	use({
+		"jose-elias-alvarez/null-ls.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+		config = function()
+			require("plugins.null-ls")
+		end,
+	})
 
-
------------------------------------------------------------
--- Final config
------------------------------------------------------------
-  -- Automatically set up your configuration after cloning packer.nvim
-  -- Put this at the end after all plugins
-  if packer_bootstrap then
-    require('packer').sync()
-  end
+	-----------------------------------------------------------
+	-- Final config
+	-----------------------------------------------------------
+	-- Automatically set up your configuration after cloning packer.nvim
+	-- Put this at the end after all plugins
+	if packer_bootstrap then
+		require("packer").sync()
+	end
 end)
