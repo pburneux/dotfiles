@@ -27,7 +27,7 @@ local sources = {
 
 	-- Lua
 	b.formatting.stylua,
-	b.formatting.stylua.with({ extra_args = { indent_width = 2 } }),
+	b.formatting.stylua.with({ extra_args = { indent_width = 2, indent_type="Spaces" } }),
 	-- b.diagnostics.luacheck.with({ extra_args = { "--global vim" } }),
 
 	-- Shell

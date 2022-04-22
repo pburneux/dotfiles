@@ -109,3 +109,6 @@ map('n', '<leader>ft', ':Telescope <CR>')
 
 -- null-ls formatting
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+
+-- Trouble
+map('n', '<leader>tt', '<cmd>TroubleToggle <CR>')
