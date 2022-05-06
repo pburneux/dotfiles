@@ -18,7 +18,8 @@
 
 [colors]
 background = ${xrdb:background}
-;foreground = #676b73 
+; background = #24292e
+;foreground = #676b73
 foreground = ${xrdb:foreground}
 
 color0 = ${xrdb:color0}
@@ -37,7 +38,7 @@ color12 = ${xrdb:color12}
 color13 = ${xrdb:color13}
 color14 = ${xrdb:color14}
 color15 = ${xrdb:color15}
-dark-light = #272A2B 
+dark-light = #272A2B
 active-light = #313435
 
 [bar/example]
@@ -46,11 +47,11 @@ tray-position = right
 monitor = ${env:MONITOR}
 width =  100%
 height = 24
-padding-left =1
+padding-left =0
 padding-right =0
 
-offset-y = 5
-radius = 6
+; offset-y = 5
+; radius = 6
 fixed-center = true
 border-size = 15
 border-color = ${colors.background}
@@ -63,11 +64,12 @@ border-bottom-size = 7
 border-top-color = ${colors.background}
 border-bottom-color = ${colors.background}
 
+
 line-size = 1
 wm-restack = bspwm
 
-modules-left = round-left bspwm round-right empty-space round-left polywins round-right empty-space round-left player-mpris-tail round-right 
-modules-center = 
+modules-left = bspwm empty-space round-left polywins round-right empty-space
+modules-center =
 modules-right = alsa round-left cpu round-right empty-space mem updates wlan xbacklight round-left time  round-right  powermenu
 
 
@@ -103,7 +105,7 @@ content-foreground = #2a2e36
 [module/roundd-left]
 type = custom/text
 content = %{T3}%{T-}
-content-foreground = #a3be8c 
+content-foreground = #a3be8c
 
 [module/roundd-right]
 type = custom/text
@@ -120,7 +122,7 @@ format-warn = <ramp> <label-warn>
 format-padding = 1
 label = %temperature%
 label-warn = %temperature%
-ramp-0 =  "󰜗" 
+ramp-0 =  "󰜗"
 ramp-font = 3
 ramp-foreground = #a4ebf3
 
@@ -136,32 +138,30 @@ reverse-scroll = false
 
 format = <label-state>
 
-ws-icon-0 = 1;%{F#F9DE8F}  
-ws-icon-1 = 2;%{F#ff9b93}   
-ws-icon-2 = 3;%{F#95e1d3}    
-ws-icon-3 = 4;%{F#81A1C1}
-ws-icon-4 = 5;%{F#A3BE8C}
+ws-icon-0 = 1;%{F#79b8ff}  Comms
+ws-icon-1 = 2;%{F#85e89d}  Arch
+ws-icon-2 = 3;%{F#ffea7f}  Firefox
 
 label-separator = " "
 label-separator-background = #2a2e36
 
-label-focused =  %icon%  
+label-focused =  %icon%
 label-focused-foreground = ${colors.foreground}
 label-focused-padding = 1
 label-focused-background = #464a52
-label-focused-margin = 0 
+label-focused-margin = 0
 
-label-occupied =  %icon%  
-label-occupied-foreground = #646870  
+label-occupied =  %icon%
+label-occupied-foreground = #646870
 label-occupied-background = #2a2e36
 label-occupied-padding = 1
-label-occupied-margin = 0 
+label-occupied-margin = 0
 
 label-empty = %icon%
 label-empty-foreground =   ${colors.foreground}
 label-empty-padding = 1
 label-empty-background = #2a2e36
-label-empty-margin = 0 
+label-empty-margin = 0
 
 
 label-urgent = %icon%
@@ -172,7 +172,7 @@ label-urgent-padding = 1
 [module/alsa]
 type = internal/alsa
 format-volume = <label-volume> <bar-volume>
-label-volume = " "  
+label-volume = " "
 label-volume-foreground = ${colors.foreground}
 format-muted-foreground = ${colors.foreground}
 label-muted = " "
@@ -188,10 +188,10 @@ bar-volume-foreground-4 = #61afef
 bar-volume-foreground-5 = #61afef
 bar-volume-foreground-6 = #61afef
 bar-volume-gradient = false
-bar-volume-indicator = 
+bar-volume-indicator =
 bar-volume-indicator-foreground = #61afef
 bar-volume-indicator-font = 2
-bar-volume-fill =  
+bar-volume-fill = 
 bar-volume-fill-foreground = #61afef
 bar-volume-fill-font = 2
 bar-volume-empty = 
@@ -217,23 +217,38 @@ label-foreground = #82868e
 type = custom/script
 exec = free -m | sed -n 's/^Mem:\s\+[0-9]\+\s\+\([0-9]\+\)\s.\+/\1/p'
 format = <label>
-format-prefix = "﬙ " 
+format-prefix = "﬙ "
 label = %output% MB
 label-padding = 1
 format-prefix-foreground = #d19a66
+
+[module/mpd]
+type = internal/mpd
+
+; Host where mpd is running (either ip or domain name)
+; Can also be the full path to a unix socket where mpd is running.
+; host = 127.0.0.1
+; port = 6600
+; password = mysecretpassword
+
+; Seconds to sleep between progressbar/song timer sync
+; Default: 1
+interval = 2
+
+format-online = <icon-prev> <icon-seekb> <icon-stop> <toggle> <icon-seekf> <icon-next>  <icon-repeat> <icon-random>  <bar-progress> <label-time>  <label-song>
 
 [module/updates]
 type = custom/script
 exec = checkupdates 2>/dev/null | wc -l & sleep 1
 format = <label>
-interval = 4600 
-label =  %output%  
+interval = 4600
+label =  %output%
 label-padding = 2
 label-foreground = #BF616A
 
 [module/powermenu]
-type = custom/text 
-content =" " 
+type = custom/text
+content =" "
 content-padding = 2
 click-left = rofi -show power-menu -modi power-menu:rofi-power-menu
 content-foreground = #f25287
@@ -243,8 +258,8 @@ type = internal/network
 interface = wlp2s0
 interval = 3.0
 format-connected =  <label-connected>
-label-connected = "󰤪  " 
-label-connected-foreground = #A3BE8C 
+label-connected = "󰤪  "
+label-connected-foreground = #A3BE8C
 
 [module/battery]
 type = internal/battery
@@ -268,22 +283,22 @@ format-foreground = ${colors.color4}
 format-background = ${colors.background}
 
 label-discharging-foreground = ${colors.foreground}
-ramp-capacity-foreground =  #A0E8A2  
+ramp-capacity-foreground =  #A0E8A2
 label-charging-foreground = ${colors.foreground}
 
 label-padding = 1
 
-ramp-capacity-0 = "  " 
-ramp-capacity-1 = "  " 
-ramp-capacity-2 = "  " 
-ramp-capacity-3 = "  " 
+ramp-capacity-0 = "  "
+ramp-capacity-1 = "  "
+ramp-capacity-2 = "  "
+ramp-capacity-3 = "  "
 ramp-capacity-4 = "  "
 
 
-animation-charging-0 = "  " 
-animation-charging-1 = "  " 
-animation-charging-2 = "  " 
-animation-charging-3 = "  " 
+animation-charging-0 = "  "
+animation-charging-1 = "  "
+animation-charging-2 = "  "
+animation-charging-3 = "  "
 animation-charging-4 = "  "
 
 
@@ -298,7 +313,7 @@ type = custom/script
 exec = amixer get Master | awk '$0~/%/{print $4}' | tr -d '[]'
 format = <label>
 internal = 5.0
-label = %output% 
+label = %output%
 label-foreground = #BF616A
 label-padding = 1
 
@@ -315,8 +330,8 @@ format-padding = 1
 type = internal/cpu
 interval = 2.5
 
-format-prefix ="  " 
-format =  <label> 
+format-prefix ="  "
+format =  <label>
 
 label = CPU %percentage%%
 format-background = #2a2e36

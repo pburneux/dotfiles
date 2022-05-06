@@ -23,8 +23,8 @@ map('n', '<leader>r', ':so %<CR>')
 -- Fast saving with <leader> and w
 map('n', '<leader>w', ':w<CR>')
 
--- fast quiting buffer
-map('n', '<leader>q', ':bdelete<CR>')
+-- fast exiting buffer
+map('n', '<leader>x', ':bdelete<CR>')
 
 -- Close all windows and exit from Neovim with <leader> and q
 map('n', '<leader>Q', ':qa!<CR>')
@@ -99,8 +99,10 @@ map('n', '<leader>i', ':TSLspImportAll<CR>')
 map('n', '<leader>io', ':TSLspOrganize<CR>')
 
 -- Float term
-map('n', '<F1>', ':FloatermToggle scratch<CR>')
-map('t', '<F1>', '<C-\\><C-n>:FloatermToggle scratch<CR>')
+-- map('n', '<F1>', ':FloatermToggle scratch<CR>')
+-- map('t', '<F1>', '<C-\\><C-n>:FloatermToggle scratch<CR>')
+map('n', '<F1>', ':FloatermNew! cd %:p:h <CR>')
+map('t', '<F1>', '<C-\\><C-n>:FloatermToggle<CR>')
 
 -- Telescope
 map('n', '<leader>ff', ':Telescope git_files<CR>')
@@ -111,4 +113,5 @@ map('n', '<leader>ft', ':Telescope <CR>')
 map('n', '<leader>fm', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 
 -- Trouble
-map('n', '<leader>tt', '<cmd>TroubleToggle <CR>')
+map('n', '<leader>tt', '<cmd>TroubleToggle document_diagnostics <CR>')
+map('n', '<leader>ta', '<cmd>TroubleToggle workspace_diagnostics <CR>')

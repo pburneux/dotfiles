@@ -8,7 +8,7 @@ vim.g.floaterm_wintitle=0
 
 -- Floaterm colors
 cmd([[
-  hi Floaterm guifg=#1f2428 guibg=#1f2428
+  hi Floaterm guibg=#1f2428
   hi FloatermBorder guifg=#1f2428 guibg=#1f2428
 ]])
 

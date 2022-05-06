@@ -171,6 +171,7 @@ return packer.startup(function(use)
     -- bufferline.nvim
     use({
         "akinsho/bufferline.nvim",
+        after = "github-nvim-theme",
         tag = "*",
         config = function()
             require("plugins.bufferline")
